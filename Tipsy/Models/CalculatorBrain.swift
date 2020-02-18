@@ -10,7 +10,14 @@ import Foundation
 
 struct CalculatorBrain {
 
-    var percentage: Float?
-    var split: Float?
+    var percentage: Float
+    var split: Float
+    var bill: Float?
     
+    func computeTip() -> Float? {
+        if let bill = bill {
+            return bill / split * percentage
+        }
+        return nil
+    }
 }

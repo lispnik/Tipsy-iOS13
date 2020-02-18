@@ -16,7 +16,7 @@ class CalculatorViewController: UIViewController {
     @IBOutlet weak var twentyPercentButton: UIButton!
     @IBOutlet weak var splitNumberLabel: UILabel!
     
-    var brain = CalculatorBrain(percentage: 0.1)
+    var brain = CalculatorBrain(percentage: 0.1, split: 2.0)
     
     @IBAction func tipChanged(_ sender: UIButton) {
         for button in [zeroPercentButton, tenPercentButton, twentyPercentButton] {
@@ -33,15 +33,18 @@ class CalculatorViewController: UIViewController {
     }
     
     @IBAction func calculatePressed(_ sender: UIButton) {
-        print(brain.percentage ?? "none")
-        print(brain.split ?? "none")
+        billTextField.endEditing(true)
+        print(brain.percentage)
+        print(brain.split)
+        if let bill = Float(billTextField!.text!) {
+            brain.bill = bill
+            let tip = brain.computeTip()
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tenPercentButton.isSelected = true
-        
-        // Do any additional setup after loading the view.
     }
 }
 

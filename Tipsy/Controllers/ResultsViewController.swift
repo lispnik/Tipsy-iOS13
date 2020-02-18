@@ -14,24 +14,15 @@ class ResultsViewController: UIViewController {
     @IBOutlet weak var settingsLabel: UILabel!
     
     @IBAction func recalculatePressed(_ sender: UIButton) {
+        self.dismiss(animated: true, completion: nil)
     }
     
+    var brain: CalculatorBrain?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        totalLabel.text = String(format: "%.2f", brain!.computeTip()!)
+        settingsLabel.text = String(format: "Split between %.0f people, with %.0f%% tip", brain!.split, brain!.percentage * 100)
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

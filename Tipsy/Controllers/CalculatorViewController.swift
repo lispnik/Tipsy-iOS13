@@ -16,7 +16,7 @@ class CalculatorViewController: UIViewController {
     @IBOutlet weak var twentyPercentButton: UIButton!
     @IBOutlet weak var splitNumberLabel: UILabel!
     
-    var brain = CalculatorBrain(percentage: 0.1, split: 2.0)
+    var brain = CalculatorBrain(percentage: 0.1, split: 2.0, bill: 0.0)
     
     @IBAction func tipChanged(_ sender: UIButton) {
         for button in [zeroPercentButton, tenPercentButton, twentyPercentButton] {
@@ -38,13 +38,20 @@ class CalculatorViewController: UIViewController {
         print(brain.split)
         if let bill = Float(billTextField!.text!) {
             brain.bill = bill
-            let tip = brain.computeTip()
+            performSegue(withIdentifier: "gotoResults", sender: self)
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tenPercentButton.isSelected = true
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "gotoResults" {
+            let destination = segue.destination as! ResultsViewController
+            destination.brain = brain
+        }
     }
 }
 
